@@ -1,5 +1,10 @@
 SampleApp::Application.routes.draw do
+  resources :users #because we have a user model
   get "users/new"
+  get "pages/home"
+  get "pages/about"
+  get "pages/contact"
+  get "pages/help"
   match 'home', :to => "Pages#home"
   match 'about', :to => "Pages#about"
   match 'help', :to => "Pages#help"
