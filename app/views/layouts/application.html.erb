@@ -13,7 +13,13 @@
 	<body>
 		<div class="container">
 			<%= render 'layouts/header' %>
-			<section class="round">
+			<section class="round"> 
+				<!-- Display the flash at the top of the page -->
+				<% flash.each do |key, value| %>
+					<div class="flash <%= key %>"><%= value %></div>
+				<% end %>
+				
+				<!-- yield to display the page-->
 				<%= yield %>
 			</section>
 			<%= render 'layouts/footer' %>
