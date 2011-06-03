@@ -16,7 +16,7 @@
 			<section class="round"> 
 				<!-- Display the flash at the top of the page -->
 				<% flash.each do |key, value| %>
-					<div class="flash <%= key %>"><%= value %></div>
+					<%= content_tag(:div, value, :class => "flash #{key}") %>
 				<% end %>
 				
 				<!-- yield to display the page-->

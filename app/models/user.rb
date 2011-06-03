@@ -40,6 +40,14 @@ class User < ActiveRecord::Base
     # we'll return nil here at the end. Oh, magical Ruby.
   end
   
+  def self.authenticate_with_salt(id, cookie_salt)
+    user = find_by_id(id)
+    (user && user.salt == cookie_salt) ? user : nil
+    #the line above is equivalent to the two lines here:
+    # return nil if user.nil?
+    # return user if user.salt == cookie_salt
+  end
+  
   private
     def encrypt_password
       self.salt = make_salt if new_record? #only store the salt if

@@ -1,15 +1,20 @@
 SampleApp::Application.routes.draw do
   resources :users #because we have a user model
+  resources :sessions, :only => [:new, :create, :destroy]
+  
   get "users/new"
   get "pages/home"
   get "pages/about"
   get "pages/contact"
   get "pages/help"
+  get "sessions/new"
   match 'home', :to => "Pages#home"
   match 'about', :to => "Pages#about"
   match 'help', :to => "Pages#help"
   match 'contact', :to => "Pages#contact"
   match 'signup', :to => "Users#new"
+  match 'signin', :to => "Sessions#new"
+  match 'signout', :to => "Sessions#destroy"
   root :to => "Pages#home"
 
   # The priority is based upon order of creation:
