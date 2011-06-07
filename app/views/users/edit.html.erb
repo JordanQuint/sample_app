@@ -2,6 +2,13 @@
 
 <%= form_for(@user) do |f| %>
 	<%= render 'shared/error_messages', :object => f.object %>
+	<!-- <div>
+			<%# if current_user is an admin, and this user is not %>
+			<% if current_user.admin? && !@user.admin? %>
+				<%= f.label :admin %>
+				<%= f.check_box(:admin) %>
+			<% end %>
+		</div> -->
 	<div class="field">
 		<%= f.label :name %>
 		<%= f.text_field :name %>
@@ -25,5 +32,7 @@
 
 <div>
 	<%= gravatar_for @user %>
-	<a href="http://gravatar.com/emails">change picture</a>
+	<%= link_to "change picture", "http://gravatar.com/emails", :target => "_blank" %>
 </div>
+		
+		
