@@ -5,7 +5,7 @@ describe User do
   before(:each) do
     @attr = {
       :name => "Example User",
-      :email => "user@example.com",
+      :email => "user5@example.com",
       :password => "apples",
       :password_confirmation => "apples"
     }
@@ -34,7 +34,7 @@ describe User do
    end
    
    it "should reject names that are too long" do
-     long_name = "a" * 16
+     long_name = "a" * 31
      long_name_user = User.new(@attr.merge(:name => long_name))
      long_name_user.should_not be_valid
    end
@@ -105,7 +105,7 @@ describe User do
         it "should be false if the passwords don't match" do
           @user.has_password?("notapples").should be_false
         end
-      end
+      end #end has_password? method
       
       describe "authenticate method" do
         it "should return nil on email/password mismatch" do
@@ -122,8 +122,27 @@ describe User do
           matching_user = User.authenticate(@attr[:email], @attr[:password])
           matching_user.should == @user
         end
+      end #end authenticate method
+      
+    end #end password encryption
+   
+   describe "admin attribute" do
+     before(:each) do
+       @user = User.create!(@attr)
       end
       
-    end
+      it "should respond to admin" do
+        @user.should respond_to(:admin)
+      end
+      
+      it "should not be admin by default" do
+        @user.should_not be_admin
+      end
+      
+      it "should be convertible to an admin" do
+        @user.toggle!(:admin)
+        @user.should be_admin
+      end
+    end #admin attribute 
    
 end
