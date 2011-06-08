@@ -13,6 +13,7 @@
 class User < ActiveRecord::Base
   attr_accessor :password #indicating that it's a virtual attribute, not a stored one
   attr_accessible :name, :email, :password, :password_confirmation
+  has_many :microposts, :dependent => :destroy
   
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   
@@ -27,6 +28,10 @@ class User < ActiveRecord::Base
                        :length => { :within => 6 .. 40}
                        
   before_save :encrypt_password
+  
+  def feed
+    Micropost.where("user_id = ?" , id)
+  end
   
   def has_password?(submitted_password)
     encrypt(submitted_password) == encrypted_password

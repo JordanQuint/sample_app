@@ -44,10 +44,18 @@ describe UsersController do
     
     it "should have a profile image" do
       get :show, :id => @user
-      response.should have_selector("h1>img", :class => "gravatar")
+      response.should have_selector("img", :class => "gravatar")
       #the :class attribute tests the CSS class's name
     end
-  end
+    
+    it "should show the user's microposts" do
+      mp1 = Factory(:micropost, :user => @user, :content => "Wat.")
+      mp2 = Factory(:micropost, :user => @user, :content => "Lulz.")
+      get :show, :id => @user
+      response.should have_selector("span.content", :content => mp1.content)
+      response.should have_selector("span.content", :content => mp2.content)
+    end
+  end #get 'show'
   
   describe "POST create" do
     
