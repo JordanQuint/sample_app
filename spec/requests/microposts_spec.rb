@@ -14,7 +14,7 @@ describe "Microposts" do
       it "should not make a new micropost" do
         lambda do
           visit root_path
-          fill_in :micropost_content, :with => ""
+          fill_in :content, :with => ""
           click_button
           response.should render_template('pages/home')
           response.should have_selector("div#error_explanation")
@@ -28,7 +28,7 @@ describe "Microposts" do
         content = "This is some content UP IN HURR."
         lambda do
           visit root_path
-          fill_in :micropost_content, :with => content
+          fill_in :content, :with => content
           click_button
           response.should have_selector("span.content", :content => content)
         end.should change(Micropost, :count).by(1)

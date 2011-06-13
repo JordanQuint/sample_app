@@ -194,6 +194,37 @@ h1.micropost {
 	margin-bottom: 0.3em;
 }
 
+ul.microposts {
+	list-style-type: none;
+	margin-top: 1em;
+}
+
+ul.microposts li {
+	height: 70px;
+}
+
+ul.microposts li span.gravatar {
+	border-top: 1px solid #ccc;
+	vertical-align: top;
+	width: 50px;
+}
+
+ul.microposts li span.micropost {
+	border-top: 1px solid #ccc;
+	vertical-align: top;
+	padding-top: 10px;
+}
+
+ul.microposts li span.micropost span.user {
+	
+}
+
+ul.microposts li span.micropost span.timestamp {
+	display: block;
+	font-size: 85%;
+	color: #666;
+}
+
 table.microposts {
 	margin-top: 1em;
 }
