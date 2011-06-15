@@ -1,7 +1,12 @@
 SampleApp::Application.routes.draw do
-  resources :users #because we have a user model
+  resources :users do  #because we have a user model
+    member do
+      get :following, :followers
+    end
+  end
   resources :sessions, :only => [:new, :create, :destroy]
   resources :microposts, :only => [:create, :destroy]
+  resources :relationships, :only => [:create, :destroy]
   
   get "users/new"
   get "pages/home"
