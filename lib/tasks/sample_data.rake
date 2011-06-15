@@ -3,6 +3,13 @@ namespace :db do
   task :populate => :environment do
     require 'faker'
     Rake::Task['db:reset'].invoke
+    make_users
+    make_microposts
+    make_relationships
+  end #task :populate => :environment
+end #namespace :db
+
+def make_users
     admin = User.create!(:name => "Jordan Quint",
                  :email => "jordanquint@hotmail.com",
                  :password => "castlevaniapwns",
@@ -17,10 +24,21 @@ namespace :db do
                    :password => password,
                    :password_confirmation => password)
     end #99 users
+end #make_users
+
+def make_microposts
     User.all(:limit => 6).each do |user|
       50.times do
         user.microposts.create!(:content => Faker::Lorem.sentence(5))
       end #50 microposts
     end #for each user
-  end #task :populate => :environment
-end #namespace :db
+end #make_microposts
+
+def make_relationships
+  users = User.all
+  user = users.first
+  following = users[1..50]
+  followers = users [3..40]
+  following.each { |followed| user.follow!(followed) }
+  followers.each { |follower| follower.follow!(user) }
+end #make_relationships
